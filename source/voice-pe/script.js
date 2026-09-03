@@ -480,10 +480,19 @@ function registerCycleLocalCloud() {
 
 function registerLanguageSelectChange() {
     const browserLocale = navigator.language || navigator.userLanguage;
+    const requestedLocale = new URLSearchParams(window.location.search).get('language');
+    const languageSelectElement = document.querySelector('#language-select');
 
-    updateLanguageSupports(browserLocale);
+    if (requestedLocale) {
+        languageSelectElement.value = requestedLocale;
+        languageSelect.update();
+        document.querySelector('#language-selection-status').innerHTML =
+            `Showing support for <strong>${requestedLocale}</strong>`;
+    }
 
-    document.querySelector('#language-select').addEventListener('change', function (e) {
+    updateLanguageSupports(requestedLocale || browserLocale);
+
+    languageSelectElement.addEventListener('change', function (e) {
         updateLanguageSupports(e.target.value);
     });
 }
