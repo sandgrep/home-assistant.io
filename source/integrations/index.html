@@ -245,8 +245,6 @@ allComponents.pop(); // remove placeholder element at the end
             <div class='title'>${component.title}</div>
           </a>
           `).join('\n');
-      } else {
-        rendered = '<div class="alert alert-note"><p class="alert-content">Nothing found!</p></div>';
       }
 
       // set active class on active menu item
@@ -260,7 +258,7 @@ allComponents.pop(); // remove placeholder element at the end
       componentContainerEl.innerHTML = '';
       componentContainerEl.classList.remove('show-items');
       componentContainerEl.classList.remove('remove-items');
-      componentContainerEl.innerHTML = rendered;
+      componentContainerEl.innerHTML = components.length ? rendered : `<div class="alert alert-note"><p class="alert-content">Nothing found for ${decodeURIComponent(location.hash)}!</p></div>`;
       componentContainerEl.classList.add('show-items');
     }
 
